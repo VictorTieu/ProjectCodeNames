@@ -1,16 +1,11 @@
 package com.example.projectcodenames;
 
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,14 +13,44 @@ public class MainActivity extends AppCompatActivity {
     private String[][] id;
     public int row, col;
     private WordList wordList = new WordList();
+    //private Word[] words;
+
+    private Word[] words = {new Word("A", Color.BLACK), new Word("B", Color.WHITE), new Word("C", Color.WHITE), new Word("D", Color.WHITE), new Word("E", Color.WHITE), new Word("F", Color.WHITE),
+            new Word("G", Color.WHITE), new Word("H", Color.WHITE), new Word("I", Color.WHITE), new Word("J", Color.WHITE), new Word("K", Color.WHITE), new Word("L", Color.WHITE),
+            new Word("M", Color.WHITE), new Word("N", Color.WHITE), new Word("O", Color.WHITE), new Word("P", Color.WHITE), new Word("Q", Color.WHITE), new Word("R", Color.WHITE),
+            new Word("S", Color.WHITE), new Word("T", Color.WHITE), new Word("U", Color.WHITE), new Word("V", Color.WHITE), new Word("W", Color.WHITE), new Word("X", Color.WHITE),
+            new Word("Y", Color.WHITE), new Word("Z", Color.WHITE)};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        createGameBoard();
+
+        GridView gridView = findViewById(R.id.gridView);
+        //words = createWordArray();
+        final BoardAdapter boardAdapter = new BoardAdapter(this, words);
+        gridView.setAdapter(boardAdapter);
+/*
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView parent, View view, int position, long id) {
+                Word word = words[position];
+                //word.toggleClicked();
+                boardAdapter.notifyDataSetChanged();
+            }
+        });*/
     }
-    
+/*
+    private Word[] createWordArray() {
+        Word[] words = new Word[25];
+        wordList.shuffleList();
+        List<String> shuffledWords = wordList.getListOfWords();
+        for (int i =0; i< 25; i++) {
+            //words[i] = new Word(shuffledWords.get(i));
+        }
+        return words;
+    }
+
     private void createGameBoard() {
         wordList.shuffleList();
         List<String> shuffledWords = wordList.getListOfWords();
@@ -85,5 +110,5 @@ public class MainActivity extends AppCompatActivity {
         ColorDrawable backgroundColor = (ColorDrawable) textView.getBackground();
         int colorId = backgroundColor.getColor();
         return colorId;
-    }
+    }*/
 }

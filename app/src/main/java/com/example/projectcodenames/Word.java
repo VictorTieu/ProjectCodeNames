@@ -1,25 +1,44 @@
 package com.example.projectcodenames;
 
-import android.graphics.drawable.ColorDrawable;
-import android.widget.Button;
+import android.graphics.Color;
 
-public class Word {
+class Word {
 
     private String randomWord;
-    private int color;
+    private int currentColor;
+    private int colorPosition = 0;
+    private int[] color = {Color.LTGRAY, Color.RED, Color.BLUE, Color.GRAY, Color.BLACK};
 
-    public Word(String randomWord, int color) {
+    Word(String randomWord) {
         this.randomWord = randomWord;
-        this.color = color;
+        this.currentColor = color[colorPosition];
     }
 
-    public int returnBackgroundColor(Button button) {
-        ColorDrawable backgroundColor = (ColorDrawable) button.getBackground();
-        int colorId = backgroundColor.getColor();
-        return colorId;
+    private void incrementColorPosition() {
+        colorPosition++;
+        if (colorPosition == color.length) {
+            colorPosition = 0;
+        }
     }
 
-    public String getRandomWord() {
+    private int getColorPosition() {
+        return colorPosition;
+    }
+
+    void incrementColorArray() {
+        incrementColorPosition();
+        setCurrentColor(getColorPosition());
+    }
+
+    int getCurrentColor() {
+        return currentColor;
+    }
+
+    private void setCurrentColor(int position) {
+        this.currentColor = color[position];
+    }
+
+    String getRandomWord() {
         return randomWord;
     }
 }
